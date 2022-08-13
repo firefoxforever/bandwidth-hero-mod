@@ -128,8 +128,9 @@ chrome.storage.local.get(storedState => {
         ) {
             compressed.add(url)
             const redirectUrl = buildCompressUrl(url);
-
-            if (!isFirefox()) return { redirectUrl }
+            console.log(`Redirecting ${url} to ${redirectUrl}`);
+            // if (!isFirefox()) 
+            return { redirectUrl }
             // Firefox allows onBeforeRequest event listener to return a Promise
             // and perform redirect when this Promise is resolved.
             // This allows us to run HEAD request before redirecting to compression
@@ -166,7 +167,7 @@ chrome.storage.local.get(storedState => {
         let redirectUrl = '';
         redirectUrl += state.proxyUrl;
         redirectUrl += `?url=${encodeURIComponent(url)}`;
-        redirectUrl += `&jpeg=${state.isWebpSupported ? 0 : 1}`;
+        redirectUrl += `&webp=${state.isWebpSupported ? 1 : 0}`;
         redirectUrl += `&bw=${state.convertBw ? 1 : 0}`;
         redirectUrl += `&l=${state.compressionLevel}`;
         return redirectUrl;
@@ -219,8 +220,10 @@ chrome.storage.local.get(storedState => {
      * images loading from our compression proxy URL.
      */
     function onHeadersReceivedListener({ responseHeaders }) {
+        let header = patchContentSecurity(responseHeaders, state.proxyUrl);
+        console.log(header)
         return {
-            responseHeaders: patchContentSecurity(responseHeaders, state.proxyUrl)
+            responseHeaders: header
         }
     }
 

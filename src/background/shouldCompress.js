@@ -3,6 +3,7 @@ import isPrivateNetwork from './isPrivateNetwork';
 import parseUrl from '../utils/parseUrl';
 
 export default ({ imageUrl, pageUrl, compressed, proxyUrl, disabledHosts, enabled, type = 'image' }) => {
+  
   imageUrl = imageUrl.replace('#bh-no-compress=1', '');
 
   // If we aren't enabled we don't have to do anything.
@@ -27,6 +28,7 @@ export default ({ imageUrl, pageUrl, compressed, proxyUrl, disabledHosts, enable
   // back as a normal request. If we don't keep track it will keep looping around
   // sending the image to the proxy and proxy redirecting.
   if (compressed.has(imageUrl)) {
+    console.log("this url compressed "+imageUrl)
     return false;
   }
 
@@ -35,11 +37,13 @@ export default ({ imageUrl, pageUrl, compressed, proxyUrl, disabledHosts, enable
   const isHttps = imageUrl.toLowerCase().startsWith('https://') ||
                   imageUrl.toLowerCase().startsWith('http://');
   if (!isHttps) {
+    console.log("this url not http"+imageUrl)
     return false;
   }
 
   // Do not process tracking URLs.
   if (isTrackingPixel(imageUrl)) {
+    console.log("this url is pixel"+imageUrl)
     return false;
   }
 
@@ -47,22 +51,26 @@ export default ({ imageUrl, pageUrl, compressed, proxyUrl, disabledHosts, enable
   // request is our own redirect and shouldn't be processed.
   const cleanImageUrl = stripQueryStringAndHashFromPath(imageUrl);
   if (cleanImageUrl.startsWith(proxyUrl)) {
+    console.log("this url is self"+imageUrl)
     return false;
   }
 
   // Local images aren't accessible for out proxy.
   if (isPrivateNetwork(imageUrl)) {
+    console.log("this url is private"+imageUrl)
     return false;
   }
 
   // If the host of the page or image is disabled then do nothing.
   if (disabledHosts.includes(pageUrl)) {
+    console.log("this url is disabled"+imageUrl)
     return false;
   }
 
   // If the host of the page or image is disabled then do nothing.
   const imageHost = parseUrl(cleanImageUrl).hostname;
   if (disabledHosts.includes(imageHost)) {
+    console.log("this url image host disabled"+imageUrl)
     return false;
   }
 
@@ -70,11 +78,13 @@ export default ({ imageUrl, pageUrl, compressed, proxyUrl, disabledHosts, enable
   const notSupported = ['ico', 'svg'];
   const matched = notSupported.filter(ext => imageUrl.endsWith('.' + ext));
   if (matched.length > 0) {
+    console.log("this url not supported"+imageUrl)
     return false;
   }
 
   // Do not process favicons. Those are too small to process most of the time.
   if (imageUrl.includes('favicon')) {
+    console.log("this url favicon "+imageUrl)
     return false;
   }
 
@@ -84,9 +94,10 @@ export default ({ imageUrl, pageUrl, compressed, proxyUrl, disabledHosts, enable
   // to only get images. But, do this only if the type of the request is
   // xmlhttprequest.
   if (type.toLowerCase() === 'xmlhttprequest' && !isImage(cleanImageUrl)) {
+    console.log("this url xmlhttp not image"+imageUrl)
     return false;
   }
-
+  console.log("this url "+imageUrl+"\r\ntrue")
   return true;
 };
 
@@ -94,6 +105,7 @@ function isTrackingPixel(url) {
   const trackingLinks = [
     /pagead/i,
     /(pixel|cleardot)\.*(gif|jpg|jpeg)/i,
+    /(transparent)\.*(gif)/i,
     /google\.([a-z\.]+)\/(ads|generate_204|.*\/log204)+/i,
     /google-analytics\.([a-z\.]+)\/(r|collect)+/i,
     /youtube\.([a-z\.]+)\/(api|ptracking|player_204|live_204)+/i,
