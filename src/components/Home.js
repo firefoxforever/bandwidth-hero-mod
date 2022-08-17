@@ -6,12 +6,14 @@ import SettingsAccordion from './SettingsAccordion'
 export default ({
   statistics,
   disabledHosts,
+  disabledKeywords,
   currentUrl,
   compressionLevel,
   convertBw,
   onSiteDisable,
   onSiteEnable,
   disabledOnChange,
+  disabledKeywordsOnChange,
   convertBwOnChange,
   isWebpSupported,
   compressionLevelOnChange
@@ -30,6 +32,8 @@ export default ({
     />
     <SettingsAccordion
       disabledHosts={disabledHosts}
+      disabledKeywords={disabledKeywords}
+      disabledKeywordsOnChange={disabledKeywordsOnChange}
       convertBw={convertBw}
       isWebpSupported={isWebpSupported}
       compressionLevel={compressionLevel}

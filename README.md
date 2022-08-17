@@ -1,4 +1,4 @@
-![Bandwidth Hero](https://raw.githubusercontent.com/ayastreb/bandwidth-hero/master/src/assets/logo.png)
+![Bandwidth Hero](https://raw.githubusercontent.com/firefoxforever/bandwidth-hero-mod/master/src/assets/logo.png)
 
 [![Build Status](https://travis-ci.org/ayastreb/bandwidth-hero.svg?branch=master)](https://travis-ci.org/ayastreb/bandwidth-hero)
 [![Code Climate](https://codeclimate.com/github/ayastreb/bandwidth-hero/badges/gpa.svg)](https://codeclimate.com/github/ayastreb/bandwidth-hero)
@@ -8,9 +8,11 @@ you browse web pages by compressing all images on the page. It uses
 [data compression service](https://github.com/ayastreb/bandwidth-hero-proxy) to convert images to
 low-resolution [WebP](https://developers.google.com/speed/webp/) or JPEG images.
 
+![Screenshot](https://raw.githubusercontent.com/firefoxforever/bandwidth-hero-mod/master/screenshot.png)
+
 ## How It Works?
 
-![Workflow](https://raw.githubusercontent.com/ayastreb/bandwidth-hero/master/how-it-works.png)
+![Workflow](https://raw.githubusercontent.com/firefoxforever/bandwidth-hero-mod/master/how-it-works.png)
 
 1. When active, Bandwidth Hero intercepts all images loading requests
 2. It sends each image URL to the data compression service
@@ -31,9 +33,7 @@ Once you have your own instance running, click "Configure data compression servi
 
 ## Installation
 
-[![Get Extension](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_340x96.png)](https://chrome.google.com/webstore/detail/bandwidth-hero/mmhippoadkhcflebgghophicgldbahdb?hl=en-US)
-
-[![Get Firefox Addon](https://raw.githubusercontent.com/ayastreb/bandwidth-hero/master/ff-addon-badge.png)](https://addons.mozilla.org/en-US/firefox/addon/bandwidth-hero/)
+[![Get Firefox Addon](https://raw.githubusercontent.com/firefoxforever/bandwidth-hero-mod/master/ff-addon-badge.png)](https://addons.mozilla.org/en-US/firefox/addon/bandwidth-hero-mod/)
 
 ## Build From Source
 
@@ -58,7 +58,7 @@ npm -v
 When you have `node` and `npm` available, get the latest source code from GitHub:
 
 ```
-git clone https://github.com/ayastreb/bandwidth-hero.git
+git clone https://github.com/firefoxforever/bandwidth-hero-mod.git
 cd bandwidth-hero/
 ```
 

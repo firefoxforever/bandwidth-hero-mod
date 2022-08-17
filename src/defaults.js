@@ -6,6 +6,7 @@ export default {
     bytesSaved: 0
   },
   disabledHosts: [],
+  disabledKeywords: [],
   convertBw: true,
   compressionLevel: 40,
   proxyUrl: '',

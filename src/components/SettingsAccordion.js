@@ -5,9 +5,11 @@ import CompressionSettings from './CompressionSettings'
 
 export default ({
   disabledHosts,
+  disabledKeywords,
   convertBw,
   compressionLevel,
   disabledOnChange,
+  disabledKeywordsOnChange,
   convertBwOnChange,
   isWebpSupported,
   compressionLevelOnChange
@@ -21,6 +23,13 @@ export default ({
         </Accordion.Title>
         <Accordion.Content>
           <ManageDisabled disabledHosts={disabledHosts} onChange={disabledOnChange} />
+        </Accordion.Content>
+        <Accordion.Title>
+          <Icon name="dropdown" />
+          Manage disabled keywords
+        </Accordion.Title>
+        <Accordion.Content>
+          <ManageDisabled disabledHosts={disabledKeywords} onChange={disabledKeywordsOnChange} />
         </Accordion.Content>
         <Accordion.Title>
           <Icon name="dropdown" />

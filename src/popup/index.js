@@ -13,6 +13,7 @@ export default class Popup extends React.Component {
       enabled: props.enabled,
       statistics: props.statistics,
       disabledHosts: props.disabledHosts,
+      disabledKeywords: props.disabledKeywords,
       convertBw: props.convertBw,
       compressionLevel: props.compressionLevel,
       isWebpSupported: props.isWebpSupported,
@@ -63,6 +64,15 @@ export default class Popup extends React.Component {
     )
   }
 
+  disabledKeywordsWasChanged = (_, { value }) => {
+    this.setState(() => {
+        let disabledKeywords = { disabledKeywords: value.split('\n') }
+        chrome.storage.local.set(disabledKeywords)
+        return disabledKeywords
+      }
+    )
+  }
+
   convertBwWasChanged = () => {
     this.setState(prevState => {
         let convertBw = { convertBw: !prevState.convertBw }
@@ -108,6 +118,7 @@ export default class Popup extends React.Component {
                 onSiteDisable={this.siteWasDisabled}
                 onSiteEnable={this.siteWasEnabled}
                 disabledOnChange={this.disabledHostsWasChanged}
+                disabledKeywordsOnChange={this.disabledKeywordsWasChanged}
                 convertBwOnChange={this.convertBwWasChanged}
                 compressionLevelOnChange={this.compressionLevelWasChanged}
               />

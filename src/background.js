@@ -122,6 +122,7 @@ chrome.storage.local.get(storedState => {
                 compressed,
                 proxyUrl: state.proxyUrl,
                 disabledHosts: state.disabledHosts,
+                disabledKeywords: state.disabledKeywords,
                 enabled: state.enabled,
                 type
             })
@@ -166,10 +167,10 @@ chrome.storage.local.get(storedState => {
     function buildCompressUrl(url) {
         let redirectUrl = '';
         redirectUrl += state.proxyUrl;
-        redirectUrl += `?url=${encodeURIComponent(url)}`;
         redirectUrl += `&webp=${state.isWebpSupported ? 1 : 0}`;
         redirectUrl += `&bw=${state.convertBw ? 1 : 0}`;
         redirectUrl += `&l=${state.compressionLevel}`;
+        redirectUrl += `?url=${encodeURIComponent(url)}`;
         return redirectUrl;
     }
 
